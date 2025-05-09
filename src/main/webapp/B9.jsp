@@ -15,7 +15,6 @@
     request.setAttribute("rows", rows);
     request.setAttribute("cols", cols);
 
-    // Ghế đã được đặt trước
     String[] selectedSeats = {"C5", "C6", "C7", "C8"};
     request.setAttribute("selectedSeats", java.util.Arrays.asList(selectedSeats));
 %>
@@ -61,11 +60,7 @@
             justify-content: center;
             cursor: pointer;
             transition: 0.2s;
-        }
-
-        .seat:hover {
-            background-color: #bbb;
-            transform: scale(1.05);
+            position: relative;
         }
 
         .seat input {
@@ -76,6 +71,11 @@
             background-color: dodgerblue;
             color: white;
             cursor: not-allowed;
+        }
+
+        .seat.checked {
+            background-color: #28a745;
+            color: white;
         }
 
         input[type="submit"] {
@@ -93,6 +93,21 @@
             background-color: #218838;
         }
     </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const seats = document.querySelectorAll('.seat input[type="checkbox"]');
+            seats.forEach(seat => {
+                seat.addEventListener('change', function () {
+                    if (this.checked) {
+                        this.parentElement.classList.add("checked");
+                    } else {
+                        this.parentElement.classList.remove("checked");
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
